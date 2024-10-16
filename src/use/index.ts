@@ -1,1 +1,1 @@
-export * from './use-navigate'
+export { default as useNavigate } from './use-navigate'

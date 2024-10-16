@@ -1,1 +1,1 @@
-export * from './signal-browser-router'
+export { default as SignalBrowserRouter } from './signal-browser-router'

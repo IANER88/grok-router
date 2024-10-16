@@ -18,15 +18,19 @@ export default function BrowserRouter(props: BrowserRouterProps) {
 
   const browser = new SignalBrowserRouter(routes)
   browser_routers.push(browser);
-  const url = location.pathname;
 
-  for (const to in routes) {
-    console.log(test(to, url));
-    
-    if (test(to, url)) {
-      browser.root = (routes[to] as any).render();
-      return browser.root;
+  const read = (url = location.pathname) => {
+    for (const to in routes) {
+      if (test(to, url)) {
+        return (routes[to] as any).render();;
+      }
     }
   }
-
+  addEventListener('popstate', () => {
+    const node = read();
+    browser.root?.replaceWith(node ?? '');
+    browser.root = node;
+  })
+  browser.root = read();
+  return browser.root;
 } 
